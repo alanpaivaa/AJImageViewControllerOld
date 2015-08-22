@@ -11,7 +11,6 @@ import UIKit
 class AJImageViewController: UIViewController, UIScrollViewDelegate {
     
     @IBOutlet weak var scrollView: UIScrollView!
-    var imageView: UIImageView!
     
     var images = [UIImage]()
     var urls = [NSURL]()
@@ -40,7 +39,7 @@ class AJImageViewController: UIViewController, UIScrollViewDelegate {
         self.urls.append(NSURL(string: "http://wikimetal.com.br/site/wp-content/uploads/2013/10/Yngwie.jpg")!)
         self.urls.append(NSURL(string: "https://c1.staticflickr.com/9/8004/7166837179_bfa07fd7b5_b.jpg")!)
         
-        self.loadType = AJImageViewControllerLoadType.LoadFromUrls
+        self.loadType = AJImageViewControllerLoadType.LoadFromLocalImages
         
         self.setupItemCount()
         
