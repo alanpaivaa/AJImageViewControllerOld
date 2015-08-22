@@ -62,25 +62,6 @@ class AJImageViewController: UIViewController, UIScrollViewDelegate {
         
     }
     
-    func center(#imageView: UIImageView, ofScrollView scrollView: UIScrollView) -> Void {
-        let boundsSize = scrollView.bounds.size
-        var contentFrame = imageView.frame
-        
-        if contentFrame.size.width < boundsSize.width {
-            contentFrame.origin.x = (boundsSize.width - contentFrame.size.width) / 2.0
-        } else {
-            contentFrame.origin.x = 0.0
-        }
-        
-        if contentFrame.size.height < boundsSize.height {
-            contentFrame.origin.y = (boundsSize.height - contentFrame.size.height) / 2.0
-        } else {
-            contentFrame.origin.y = 0.0
-        }
-        
-        imageView.frame = contentFrame
-    }
-    
     func doubleTapScrollView(tapGesture: UITapGestureRecognizer) -> Void {
         let pointInView = tapGesture.locationInView(self.imageView)
         
@@ -98,16 +79,6 @@ class AJImageViewController: UIViewController, UIScrollViewDelegate {
         
     }
     
-    func zoom(#scrollView: UIScrollView, toScale scale: CGFloat, animated: Bool) -> Void {
-        let scrollViewSize = scrollView.bounds.size
-        let w = scrollViewSize.width / scale
-        let h = scrollViewSize.height / scale
-//        let x = self.view.center.x - (w/2.0)
-//        let y = self.view.center.y - (h/2.0)
-        let rectToZoom = CGRect(x: 0.0, y: 0.0, width: w, height: h)
-        scrollView.zoomToRect(rectToZoom, animated: animated)
-    }
-    
     func setupPagging() -> Void {
         self.scrollView.delegate = self
         
@@ -123,30 +94,17 @@ class AJImageViewController: UIViewController, UIScrollViewDelegate {
             imageForZooming.tag = 11
             
             //Init inside scroll that holds the image
-            let insideScroll = UIScrollView(frame: innerScrollFrame)
-            insideScroll.showsHorizontalScrollIndicator =  false
-            insideScroll.showsVerticalScrollIndicator = false
-            insideScroll.contentSize = imageForZooming.bounds.size
+            let insideScroll = AJScrollView(frame: innerScrollFrame, imageView: imageForZooming)
             insideScroll.delegate = self
             
-            //Setting up the max an min zoomscales for not allowing to zoom out more than the image size
-            let scrollViewFrame = insideScroll.frame
-            let scaleWidth = scrollViewFrame.size.width / insideScroll.contentSize.width
-            let scaleHeight = scrollViewFrame.size.height / insideScroll.contentSize.height
-            let minScale = min(scaleWidth, scaleHeight)
-            insideScroll.minimumZoomScale = minScale
-            insideScroll.maximumZoomScale = 3.0
-            insideScroll.zoomScale = minScale
-            
             //Adding subviews
-            insideScroll.addSubview(imageForZooming)
             self.scrollView.addSubview(insideScroll)
             
             //Zooming to aspect fit the screen
-            self.zoom(scrollView: insideScroll, toScale: minScale, animated: false)
+            insideScroll.zoom(toScale: insideScroll.minScale, animated: false)
             
             //Centering the image
-            self.center(imageView: imageForZooming, ofScrollView: insideScroll)
+            insideScroll.centerImageView()
             
             //Incrementing the inner rect origin to hold the next scroll in the right position
             innerScrollFrame.origin.x += innerScrollFrame.size.width
@@ -237,7 +195,6 @@ class AJImageViewController: UIViewController, UIScrollViewDelegate {
     
     //MARK:- ScrollView delegate
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
-//        return self.imageView
         return scrollView.viewWithTag(11)
     }
     
