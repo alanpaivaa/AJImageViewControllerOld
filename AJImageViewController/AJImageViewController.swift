@@ -20,63 +20,7 @@ class AJImageViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.blackColor()
-//        self.setupImageView()
-//        self.setupScrollView()
         self.setupPagging()
-    }
-    
-    func setupImageView() -> Void {
-        let image = UIImage(named: "jake")
-        if let image = image {
-            self.imageView = UIImageView(image: image)
-            self.imageView.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: image.size)
-            self.scrollView.addSubview(self.imageView)
-        }
-    }
-    
-    func setupScrollView() -> Void {
-        self.scrollView.delegate = self
-        
-        let v = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        v.backgroundColor = UIColor.greenColor()
-        self.scrollView.addSubview(v)
-        
-        //Setup double tap gesture
-        self.scrollView.contentSize = self.imageView.frame.size
-        var doubleTapGesture = UITapGestureRecognizer(target: self, action: Selector("doubleTapScrollView:"))
-        doubleTapGesture.numberOfTapsRequired = 2
-        doubleTapGesture.numberOfTouchesRequired = 1
-        self.scrollView.addGestureRecognizer(doubleTapGesture)
-        
-        //Setup scroll view first scale
-        let scrollViewFrame = self.scrollView.frame
-        let scaleWidth = scrollViewFrame.size.width / self.scrollView.contentSize.width
-        let scaleHeight = scrollViewFrame.size.height / self.scrollView.contentSize.height
-        let minScale = min(scaleWidth, scaleHeight)
-        self.scrollView.minimumZoomScale = minScale
-        
-        self.scrollView.maximumZoomScale = 3.0
-        self.scrollView.zoomScale = minScale
-        
-//        self.centerScrollViewContents()
-        
-    }
-    
-    func doubleTapScrollView(tapGesture: UITapGestureRecognizer) -> Void {
-        let pointInView = tapGesture.locationInView(self.imageView)
-        
-        var newZoomScale = self.scrollView.zoomScale * 1.5
-        newZoomScale = min(newZoomScale, self.scrollView.maximumZoomScale)
-        
-        let scrollViewSize = self.scrollView.bounds.size
-        let w = scrollViewSize.width / newZoomScale
-        let h = scrollViewSize.height / newZoomScale
-        let x = pointInView.x - (w/2.0)
-        let y = pointInView.y - (h/2.0)
-        
-        let rectToZoom = CGRect(x: x, y: y, width: w, height: h)
-        self.scrollView.zoomToRect(rectToZoom, animated: true)
-        
     }
     
     func setupPagging() -> Void {
@@ -91,11 +35,9 @@ class AJImageViewController: UIViewController, UIScrollViewDelegate {
         for i in 0..<self.images.count {
             //Init inside image
             let imageForZooming = UIImageView(image: self.images[i])
-            imageForZooming.tag = 11
             
             //Init inside scroll that holds the image
             let insideScroll = AJScrollView(frame: innerScrollFrame, imageView: imageForZooming)
-            insideScroll.delegate = self
             
             //Adding subviews
             self.scrollView.addSubview(insideScroll)
@@ -194,14 +136,6 @@ class AJImageViewController: UIViewController, UIScrollViewDelegate {
     }
     
     //MARK:- ScrollView delegate
-    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
-        return scrollView.viewWithTag(11)
-    }
-    
-    func scrollViewDidZoom(scrollView: UIScrollView) {
-//        self.centerScrollViewContents()
-    }
-    
     func scrollViewDidScroll(scrollView: UIScrollView) {
 //        self.loadVisiblePages()
     }

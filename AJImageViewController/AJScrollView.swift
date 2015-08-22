@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AJScrollView: UIScrollView {
+class AJScrollView: UIScrollView, UIScrollViewDelegate {
     
     var imageView: UIImageView!
     var minScale: CGFloat!
@@ -17,6 +17,8 @@ class AJScrollView: UIScrollView {
         super.init(frame: frame)
         self.imageView = imageView
         self.setupViewAttrs()
+        self.setupDoubleTapGesture()
+        self.delegate = self
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -70,5 +72,37 @@ class AJScrollView: UIScrollView {
         
         self.imageView.frame = contentFrame
     }
+    
+    func setupDoubleTapGesture() -> Void {
+        var doubleTapGesture = UITapGestureRecognizer(target: self, action: Selector("doubleTapScrollView:"))
+        doubleTapGesture.numberOfTapsRequired = 2
+        doubleTapGesture.numberOfTouchesRequired = 1
+        self.addGestureRecognizer(doubleTapGesture)
+    }
+    
+    func doubleTapScrollView(tapGesture: UITapGestureRecognizer) -> Void {
+        let pointInView = tapGesture.locationInView(self.imageView)
+        
+        var newZoomScale = self.zoomScale * 1.5
+        newZoomScale = min(newZoomScale, self.maximumZoomScale)
+        
+        let scrollViewSize = self.bounds.size
+        let w = scrollViewSize.width / newZoomScale
+        let h = scrollViewSize.height / newZoomScale
+        let x = pointInView.x - (w/2.0)
+        let y = pointInView.y - (h/2.0)
+        
+        let rectToZoom = CGRect(x: x, y: y, width: w, height: h)
+        self.zoomToRect(rectToZoom, animated: true)
+    }
+    
+    //MARK:- ScrollView Delegate
+    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+        return self.imageView
+    }
+    
+//    func scrollViewDidZoom(scrollView: UIScrollView) {
+//        self.centerImageView()
+//    }
     
 }
