@@ -156,4 +156,8 @@ class AJScrollView: UIScrollView, UIScrollViewDelegate {
         return self.imageView
     }
     
+    func scrollViewDidZoom(scrollView: UIScrollView) {
+        self.centerImageView()
+    }
+    
 }
