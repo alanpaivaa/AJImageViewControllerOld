@@ -103,8 +103,6 @@ class AJScrollView: UIScrollView, UIScrollViewDelegate {
         let scrollViewSize = self.bounds.size
         let w = scrollViewSize.width / scale
         let h = scrollViewSize.height / scale
-        //        let x = self.view.center.x - (w/2.0)
-        //        let y = self.view.center.y - (h/2.0)
         let rectToZoom = CGRect(x: 0.0, y: 0.0, width: w, height: h)
         self.zoomToRect(rectToZoom, animated: animated)
     }
