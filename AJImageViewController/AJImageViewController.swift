@@ -14,9 +14,14 @@ class AJImageViewController: UIViewController, UIScrollViewDelegate {
     var imageView: UIImageView!
     
     var images = [UIImage]()
+    var urls = [NSURL]()
+    
     var pages = [AJScrollView?]()
     var currentPage = 0
     var loadedPagesOffset = 1
+    
+    private var loadType: AJImageViewControllerLoadType!
+    private var itensCount = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,37 +36,51 @@ class AJImageViewController: UIViewController, UIScrollViewDelegate {
         self.images.append(UIImage(named: "fin")!)
         self.images.append(UIImage(named: "iceKing")!)
         
-        for _ in 0..<self.images.count {
+        self.urls.append(NSURL(string: "http://myguitar.com.br/wp-content/uploads/2015/03/kiko-loureiro-angra-entrevista-my-guitar.jpg")!)
+        self.urls.append(NSURL(string: "http://wikimetal.com.br/site/wp-content/uploads/2013/10/Yngwie.jpg")!)
+        self.urls.append(NSURL(string: "https://c1.staticflickr.com/9/8004/7166837179_bfa07fd7b5_b.jpg")!)
+        
+        self.loadType = AJImageViewControllerLoadType.LoadFromUrls
+        
+        self.setupItemCount()
+        
+        for _ in 0..<self.itensCount {
             self.pages.append(nil)
         }
         
-        self.scrollView.contentSize = CGSize(width: self.scrollView.bounds.width * CGFloat(self.images.count), height: self.scrollView.bounds.size.height)
+        self.scrollView.contentSize = CGSize(width: self.scrollView.bounds.width * CGFloat(self.itensCount), height: self.scrollView.bounds.size.height)
         
         self.loadVisiblePages()
     }
     
+    private func setupItemCount() -> Void {
+        if self.loadType == AJImageViewControllerLoadType.LoadFromLocalImages {
+            self.itensCount = self.images.count
+        } else {
+            self.itensCount = self.urls.count
+        }
+    }
+    
     func load(#page: Int) -> Void {
         
-        if page>=0 && page<self.images.count {
+        if page>=0 && page<self.itensCount {
             
             if self.pages[page] == nil {
-                //Init inside image
-                let imageForZooming = UIImageView(image: self.images[page])
-                
-                //Init inside scroll that holds the image
+                //Init inside image and scroll
                 var frame = self.scrollView.bounds
                 frame.origin.x = CGFloat(page) * self.scrollView.bounds.width
-                let insideScroll = AJScrollView(frame: frame, imageView: imageForZooming)
-                insideScroll.tag = page
+                
+                var insideScroll: AJScrollView!
+                var imageForZooming: UIImageView
+                
+                if self.loadType == AJImageViewControllerLoadType.LoadFromLocalImages {
+                    insideScroll = AJScrollView(frame: frame, image: self.images[page])
+                } else {
+                    insideScroll = AJScrollView(frame: frame, url: self.urls[page])
+                }
                 
                 //Adding subviews
                 self.scrollView.addSubview(insideScroll)
-                
-                //Zooming to aspect fit the screen
-                insideScroll.zoom(toScale: insideScroll.minScale, animated: false)
-                
-                //Centering the image
-                insideScroll.centerImageView()
                 
                 self.pages[page] = insideScroll
             }
@@ -69,7 +88,7 @@ class AJImageViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func purge(#page: Int) -> Void {
-        if page>=0 && page<self.images.count {
+        if page>=0 && page<self.itensCount {
             if let pageView = self.pages[page] {
                 pageView.removeFromSuperview()
                 self.pages[page] = nil
@@ -89,7 +108,7 @@ class AJImageViewController: UIViewController, UIScrollViewDelegate {
             self.load(page: i)
         }
         
-        for var index = lastPage+1; index<self.images.count; ++index {
+        for var index = lastPage+1; index<self.itensCount; ++index {
             self.purge(page: index)
         }
     }

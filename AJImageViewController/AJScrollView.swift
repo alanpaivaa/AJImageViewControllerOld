@@ -12,20 +12,75 @@ class AJScrollView: UIScrollView, UIScrollViewDelegate {
     
     var imageView: UIImageView!
     var minScale: CGFloat!
+    var loadIndicator: UIActivityIndicatorView!
+    var fadeDuration: NSTimeInterval = 0.3
     
-    init(frame: CGRect, imageView: UIImageView) {
+    init(frame: CGRect, image: UIImage) {
         super.init(frame: frame)
-        self.imageView = imageView
+        self.showLoadIndicator()
+        self.imageView = UIImageView(image: image)
+        self.imageView.alpha = 0
         self.setupViewAttrs()
         self.setupDoubleTapGesture()
         self.delegate = self
+        self.zoom(toScale: self.minScale, animated: false)
+        self.centerImageView()
+        self.showImageView()
     }
-
+    
+    init(frame: CGRect, url: NSURL) {
+        super.init(frame: frame)
+        self.showLoadIndicator()
+        self.loadImageFrom(url: url)
+    }
+    
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupViewAttrs() -> Void {
+    private func showLoadIndicator() -> Void {
+        self.loadIndicator = UIActivityIndicatorView(frame: CGRect(origin: self.bounds.origin, size: self.bounds.size))
+        self.loadIndicator.startAnimating()
+        self.addSubview(self.loadIndicator)
+    }
+    
+    private func hideLoadIndicator() -> Void {
+        self.loadIndicator.hidden = true
+        self.loadIndicator.stopAnimating()
+        self.loadIndicator.removeFromSuperview()
+        self.loadIndicator = nil
+    }
+    
+    private func showImageView() -> Void {
+        UIView.animateWithDuration(self.fadeDuration, animations: { () -> Void in
+            self.loadIndicator.alpha = 0
+            self.imageView.alpha = 1
+            }) { (_) -> Void in
+                self.hideLoadIndicator()
+        }
+    }
+    
+    private func loadImageFrom(#url: NSURL) -> Void {
+        let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)
+        dispatch_async(queue, { () -> Void in
+            let data = NSData(contentsOfURL: url)
+            if let data = data {
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                    self.imageView = UIImageView(image: UIImage(data: data))
+                    self.imageView.alpha = 0
+                    self.setupViewAttrs()
+                    self.setupDoubleTapGesture()
+                    self.delegate = self
+                    self.zoom(toScale: self.minScale, animated: false)
+                    self.centerImageView()
+                    
+                    self.showImageView()
+                })
+            }
+        })
+    }
+    
+    private func setupViewAttrs() -> Void {
         //Indicators and content size
         self.showsHorizontalScrollIndicator =  false
         self.showsVerticalScrollIndicator = false
@@ -44,7 +99,7 @@ class AJScrollView: UIScrollView, UIScrollViewDelegate {
         self.addSubview(self.imageView)
     }
     
-    func zoom(toScale scale: CGFloat, animated: Bool) -> Void {
+    private func zoom(toScale scale: CGFloat, animated: Bool) -> Void {
         let scrollViewSize = self.bounds.size
         let w = scrollViewSize.width / scale
         let h = scrollViewSize.height / scale
@@ -54,7 +109,7 @@ class AJScrollView: UIScrollView, UIScrollViewDelegate {
         self.zoomToRect(rectToZoom, animated: animated)
     }
     
-    func centerImageView() -> Void {
+    private func centerImageView() -> Void {
         let boundsSize = self.bounds.size
         var contentFrame = self.imageView.frame
         
@@ -73,7 +128,7 @@ class AJScrollView: UIScrollView, UIScrollViewDelegate {
         self.imageView.frame = contentFrame
     }
     
-    func setupDoubleTapGesture() -> Void {
+    private func setupDoubleTapGesture() -> Void {
         var doubleTapGesture = UITapGestureRecognizer(target: self, action: Selector("doubleTapScrollView:"))
         doubleTapGesture.numberOfTapsRequired = 2
         doubleTapGesture.numberOfTouchesRequired = 1
@@ -100,9 +155,5 @@ class AJScrollView: UIScrollView, UIScrollViewDelegate {
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
         return self.imageView
     }
-    
-//    func scrollViewDidZoom(scrollView: UIScrollView) {
-//        self.centerImageView()
-//    }
     
 }

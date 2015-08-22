@@ -14,6 +14,7 @@
 		28328DCF1B88017800D8DF22 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28328DCD1B88017800D8DF22 /* LaunchScreen.xib */; };
 		28328DDB1B88017800D8DF22 /* AJImageViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28328DDA1B88017800D8DF22 /* AJImageViewControllerTests.swift */; };
 		28A70FD01B88BE4F00422F6D /* AJScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A70FCF1B88BE4F00422F6D /* AJScrollView.swift */; };
+		28A70FD21B88D85000422F6D /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A70FD11B88D85000422F6D /* Enums.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,7 @@
 		28328DD91B88017800D8DF22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		28328DDA1B88017800D8DF22 /* AJImageViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJImageViewControllerTests.swift; sourceTree = "<group>"; };
 		28A70FCF1B88BE4F00422F6D /* AJScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AJScrollView.swift; sourceTree = "<group>"; };
+		28A70FD11B88D85000422F6D /* Enums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 				28328DCD1B88017800D8DF22 /* LaunchScreen.xib */,
 				28328DC21B88017800D8DF22 /* Supporting Files */,
 				28A70FCF1B88BE4F00422F6D /* AJScrollView.swift */,
+				28A70FD11B88D85000422F6D /* Enums.swift */,
 			);
 			path = AJImageViewController;
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 			files = (
 				28328DC71B88017800D8DF22 /* AJImageViewController.swift in Sources */,
 				28328DC51B88017800D8DF22 /* AppDelegate.swift in Sources */,
+				28A70FD21B88D85000422F6D /* Enums.swift in Sources */,
 				28A70FD01B88BE4F00422F6D /* AJScrollView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
