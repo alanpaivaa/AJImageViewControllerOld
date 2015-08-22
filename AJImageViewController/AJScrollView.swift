@@ -132,7 +132,8 @@ class AJScrollView: UIScrollView, UIScrollViewDelegate {
         var doubleTapGesture = UITapGestureRecognizer(target: self, action: Selector("doubleTapScrollView:"))
         doubleTapGesture.numberOfTapsRequired = 2
         doubleTapGesture.numberOfTouchesRequired = 1
-        self.addGestureRecognizer(doubleTapGesture)
+        self.imageView.userInteractionEnabled = true
+        self.imageView.addGestureRecognizer(doubleTapGesture)
     }
     
     func doubleTapScrollView(tapGesture: UITapGestureRecognizer) -> Void {
