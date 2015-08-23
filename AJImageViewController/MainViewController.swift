@@ -11,7 +11,6 @@ import UIKit
 class MainViewController: UIViewController {
     
     @IBOutlet weak var imageView: UIImageView!
-    let transition = AJImageViewControllerTransition()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,11 +27,14 @@ class MainViewController: UIViewController {
     }
     
     func presentImageViewController(gesture: UITapGestureRecognizer) -> Void {
-        let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-        if let imageController = storyBoard.instantiateViewControllerWithIdentifier("AJImageViewController") as? AJImageViewController {
-            imageController.transitioningDelegate = self
-            self.presentViewController(imageController, animated: true, completion: nil)
-        }
+//        let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+//        if let imageController = storyBoard.instantiateViewControllerWithIdentifier("AJImageViewController") as? AJImageViewController {
+//            imageController.transitioningDelegate = self
+//            self.presentViewController(imageController, animated: true, completion: nil)
+//        }
+        let singleImageController = AJSingleImageViewController(imageView: self.imageView)
+//        singleImageController.imageType = AJSingleImageViewControllerType.Circular
+        self.presentViewController(singleImageController, animated: true, completion: nil)
     }
     
 }
