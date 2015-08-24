@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AJImageViewController: UIViewController, UIScrollViewDelegate {
+class AJImageViewController: UIViewController, UIScrollViewDelegate, UIViewControllerTransitioningDelegate {
     
     @IBOutlet weak var scrollView: UIScrollView!
     
@@ -23,8 +23,11 @@ class AJImageViewController: UIViewController, UIScrollViewDelegate {
     private var loadType: AJImageViewControllerLoadType!
     private var itensCount = 0
     
+    private var transition: UIViewControllerAnimatedTransitioning = AJFadeTransition()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.transitioningDelegate = self
         self.view.backgroundColor = UIColor.blackColor()
         self.setupPagging()
         self.addDismissButton()
@@ -146,6 +149,15 @@ class AJImageViewController: UIViewController, UIScrollViewDelegate {
             self.currentPage = page
             self.loadVisiblePages()
         }
+    }
+    
+    //MARK:- Transition Delegate
+    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return self.transition
+    }
+    
+    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return self.transition
     }
 }
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2822E9821B8B96F400D29DE8 /* AJFadeTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2822E9811B8B96F400D29DE8 /* AJFadeTransition.swift */; };
 		282606461B88FF27004B0717 /* AJSingleImageViewControllerTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282606451B88FF27004B0717 /* AJSingleImageViewControllerTransition.swift */; };
 		28328DC51B88017800D8DF22 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28328DC41B88017800D8DF22 /* AppDelegate.swift */; };
 		28328DC71B88017800D8DF22 /* AJImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28328DC61B88017800D8DF22 /* AJImageViewController.swift */; };
@@ -31,6 +32,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2822E9811B8B96F400D29DE8 /* AJFadeTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AJFadeTransition.swift; sourceTree = "<group>"; };
 		282606451B88FF27004B0717 /* AJSingleImageViewControllerTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AJSingleImageViewControllerTransition.swift; sourceTree = "<group>"; };
 		28328DBF1B88017800D8DF22 /* AJImageViewController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AJImageViewController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		28328DC31B88017800D8DF22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				28328DC61B88017800D8DF22 /* AJImageViewController.swift */,
+				2822E9811B8B96F400D29DE8 /* AJFadeTransition.swift */,
 				28A70FCF1B88BE4F00422F6D /* AJScrollView.swift */,
 				28A70FD11B88D85000422F6D /* Enums.swift */,
 			);
@@ -250,6 +253,7 @@
 				28A70FD21B88D85000422F6D /* Enums.swift in Sources */,
 				28A70FD01B88BE4F00422F6D /* AJScrollView.swift in Sources */,
 				28A70FD41B88FD3F00422F6D /* MainViewController.swift in Sources */,
+				2822E9821B8B96F400D29DE8 /* AJFadeTransition.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
