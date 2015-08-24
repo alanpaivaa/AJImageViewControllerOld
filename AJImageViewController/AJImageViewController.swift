@@ -18,6 +18,7 @@ class AJImageViewController: UIViewController, UIScrollViewDelegate {
     var pages = [AJScrollView?]()
     var currentPage = 0
     var loadedPagesOffset = 1
+    let sideOffset: CGFloat = 10.0
     
     private var loadType: AJImageViewControllerLoadType!
     private var itensCount = 0
@@ -47,7 +48,11 @@ class AJImageViewController: UIViewController, UIScrollViewDelegate {
             self.pages.append(nil)
         }
         
-        self.scrollView.contentSize = CGSize(width: self.scrollView.bounds.width * CGFloat(self.itensCount), height: self.scrollView.bounds.size.height)
+        //Setup the side offset to give a blank space between each image
+        self.scrollView.frame.size.width += 2*self.sideOffset
+        self.scrollView.frame.origin.x -= self.sideOffset
+        
+        self.scrollView.contentSize = CGSize(width: self.scrollView.frame.width * CGFloat(self.itensCount), height: self.scrollView.frame.size.height)
         
         self.loadVisiblePages()
     }
@@ -66,8 +71,10 @@ class AJImageViewController: UIViewController, UIScrollViewDelegate {
             
             if self.pages[page] == nil {
                 //Init inside image and scroll
-                var frame = self.scrollView.bounds
-                frame.origin.x = CGFloat(page) * self.scrollView.bounds.width
+                var frame = self.scrollView.frame
+                frame.origin.x = CGFloat(page) * self.scrollView.frame.width
+                frame.origin.x += self.sideOffset
+                frame.size.width -= 2*self.sideOffset
                 
                 var insideScroll: AJScrollView!
                 var imageForZooming: UIImageView
@@ -114,7 +121,7 @@ class AJImageViewController: UIViewController, UIScrollViewDelegate {
     
     //MARK:- ScrollView delegate
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        var page = Int(self.scrollView.contentOffset.x / self.scrollView.bounds.width)
+        var page = Int(self.scrollView.contentOffset.x / self.scrollView.frame.width)
         if page != self.currentPage {
             self.currentPage = page
             self.loadVisiblePages()
