@@ -10,7 +10,7 @@ import UIKit
 
 class AJImageViewController: UIViewController, UIScrollViewDelegate, UIViewControllerTransitioningDelegate {
     
-    @IBOutlet weak var scrollView: UIScrollView!
+    var scrollView: UIScrollView!
     
     var images = [UIImage]()
     var urls = [NSURL]()
@@ -20,41 +20,60 @@ class AJImageViewController: UIViewController, UIScrollViewDelegate, UIViewContr
     var loadedPagesOffset = 1
     let sideOffset: CGFloat = 10.0
     
-    private var loadType: AJImageViewControllerLoadType!
+    private var loadType = AJImageViewControllerLoadType.LoadFromLocalImages
     private var itensCount = 0
     
     private var transition: UIViewControllerAnimatedTransitioning = AJFadeTransition()
+    
+    init(images: UIImage ...) {
+        super.init(nibName: nil, bundle: nil)
+        for image in images {
+            self.images.append(image)
+        }
+    }
+    
+    init(urls: NSURL ...) {
+        super.init(nibName: nil, bundle: nil)
+        for url in urls {
+            self.urls.append(url)
+        }
+    }
+
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.transitioningDelegate = self
         self.view.backgroundColor = UIColor.blackColor()
+        self.setupSuperSCrollView()
         self.setupPagging()
         self.addDismissButton()
+    }
+    
+    func setupSuperSCrollView() -> Void {
+        self.scrollView = UIScrollView(frame: self.view.frame)
+        self.view.addSubview(self.scrollView)
+        self.scrollView.pagingEnabled = true
+        
+        //Setup the side offset to give a blank space between each image
+        self.scrollView.frame.size.width += 2*self.sideOffset
+        self.scrollView.frame.origin.x -= self.sideOffset
     }
     
     func setupPagging() -> Void {
         self.scrollView.delegate = self
         
-        self.images.append(UIImage(named: "jake")!)
-        self.images.append(UIImage(named: "fin")!)
-        self.images.append(UIImage(named: "iceKing")!)
-        
-        self.urls.append(NSURL(string: "http://myguitar.com.br/wp-content/uploads/2015/03/kiko-loureiro-angra-entrevista-my-guitar.jpg")!)
-        self.urls.append(NSURL(string: "http://wikimetal.com.br/site/wp-content/uploads/2013/10/Yngwie.jpg")!)
-        self.urls.append(NSURL(string: "https://c1.staticflickr.com/9/8004/7166837179_bfa07fd7b5_b.jpg")!)
-        
-        self.loadType = AJImageViewControllerLoadType.LoadFromLocalImages
+        if self.images.count == 0 {
+            self.loadType = AJImageViewControllerLoadType.LoadFromUrls
+        }
         
         self.setupItemCount()
         
         for _ in 0..<self.itensCount {
             self.pages.append(nil)
         }
-        
-        //Setup the side offset to give a blank space between each image
-        self.scrollView.frame.size.width += 2*self.sideOffset
-        self.scrollView.frame.origin.x -= self.sideOffset
         
         self.scrollView.contentSize = CGSize(width: self.scrollView.frame.width * CGFloat(self.itensCount), height: self.scrollView.frame.size.height)
         

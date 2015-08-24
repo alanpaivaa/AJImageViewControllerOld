@@ -26,10 +26,9 @@ class MainViewController: UIViewController {
     }
     
     func presentImageViewController(gesture: UITapGestureRecognizer) -> Void {
-        let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-        if let imageController = storyBoard.instantiateViewControllerWithIdentifier("AJImageViewController") as? AJImageViewController {
-            self.presentViewController(imageController, animated: true, completion: nil)
-        }
+        let imageViewController = AJImageViewController(images: UIImage(named: "jake")!, UIImage(named: "fin")!, UIImage(named: "iceKing")!)
+//        let imageViewController = AJImageViewController(urls: NSURL(string: "http://myguitar.com.br/wp-content/uploads/2015/03/kiko-loureiro-angra-entrevista-my-guitar.jpg")!, NSURL(string: "http://wikimetal.com.br/site/wp-content/uploads/2013/10/Yngwie.jpg")!, NSURL(string: "https://c1.staticflickr.com/9/8004/7166837179_bfa07fd7b5_b.jpg")!)
+        self.presentViewController(imageViewController, animated: true, completion: nil)
 //        let singleImageController = AJSingleImageViewController(imageView: self.imageView)
 //        self.presentViewController(singleImageController, animated: true, completion: nil)
     }
