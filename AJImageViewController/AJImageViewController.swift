@@ -27,6 +27,7 @@ class AJImageViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.blackColor()
         self.setupPagging()
+        self.addDismissButton()
     }
     
     func setupPagging() -> Void {
@@ -117,6 +118,25 @@ class AJImageViewController: UIViewController, UIScrollViewDelegate {
         for var index = lastPage+1; index<self.itensCount; ++index {
             self.purge(page: index)
         }
+    }
+    
+    private func addDismissButton() -> Void {
+        let buttonSize: CGFloat = 44.0
+        let buttonOffset: CGFloat = 5.0
+        let buttonInset: CGFloat = 12.0
+        let button = UIButton(frame: CGRect(x: buttonOffset, y: buttonOffset, width: buttonSize, height: buttonSize))
+        button.contentEdgeInsets = UIEdgeInsets(top: buttonInset, left: buttonInset, bottom: buttonInset, right: buttonInset)
+        button.setImage(UIImage(named: "delete"), forState: UIControlState.Normal)
+        button.addTarget(self, action: Selector("dismissViewController:"), forControlEvents: UIControlEvents.TouchUpInside)
+        self.view.addSubview(button)
+    }
+    
+    func dismissViewController(sender: UIButton) -> Void {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
     }
     
     //MARK:- ScrollView delegate

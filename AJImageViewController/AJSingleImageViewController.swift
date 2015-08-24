@@ -58,6 +58,10 @@ class AJSingleImageViewController: UIViewController, UIViewControllerTransitioni
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+    
     //MARK:- UIViewControllerTransitioningDelegate methods
     func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return self.transition
