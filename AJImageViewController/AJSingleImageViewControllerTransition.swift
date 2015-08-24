@@ -10,11 +10,14 @@ import UIKit
 
 class AJSingleImageViewControllerTransition: NSObject, UIViewControllerAnimatedTransitioning {
     
-    let duration: NSTimeInterval = 0.6
+    var duration: NSTimeInterval = 0.6
     var presenting = true
     var originFrame = CGRect.zeroRect
     var referenceImageView: UIImageView!
     var factor: CGFloat!
+    var imageWidth: CGFloat!
+    var shouldBounce: Bool = true
+    private let kDumping: CGFloat = 0.8
     
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
         return self.duration
@@ -47,9 +50,9 @@ class AJSingleImageViewControllerTransition: NSObject, UIViewControllerAnimatedT
             toViewController.view.backgroundColor = fromViewController.view.backgroundColor
             containerView.addSubview(toViewController.view)
             
-            self.factor = toViewController.view.frame.size.width / imageView.frame.size.width
+            self.factor = self.imageWidth / imageView.frame.size.width
             
-            UIView.animateWithDuration(self.duration, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+            UIView.animateWithDuration(self.duration, delay: 0, usingSpringWithDamping: (self.shouldBounce ? self.kDumping : 1.0), initialSpringVelocity: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
                 imageView.transform = CGAffineTransformMakeScale(self.factor, self.factor)
                 imageView.center = destinationPoint
                 toViewController.view.backgroundColor = color

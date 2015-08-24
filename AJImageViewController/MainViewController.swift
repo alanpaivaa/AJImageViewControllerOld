@@ -23,7 +23,6 @@ class MainViewController: UIViewController {
         tapGesture.numberOfTouchesRequired = 1
         self.imageView.userInteractionEnabled = true
         self.imageView.addGestureRecognizer(tapGesture)
-        
     }
     
     func presentImageViewController(gesture: UITapGestureRecognizer) -> Void {
@@ -33,7 +32,6 @@ class MainViewController: UIViewController {
 //            self.presentViewController(imageController, animated: true, completion: nil)
 //        }
         let singleImageController = AJSingleImageViewController(imageView: self.imageView)
-//        singleImageController.imageType = AJSingleImageViewControllerType.Circular
         self.presentViewController(singleImageController, animated: true, completion: nil)
     }
     

@@ -15,7 +15,6 @@
 		28328DCF1B88017800D8DF22 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28328DCD1B88017800D8DF22 /* LaunchScreen.xib */; };
 		28328DDB1B88017800D8DF22 /* AJImageViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28328DDA1B88017800D8DF22 /* AJImageViewControllerTests.swift */; };
 		28921FE91B894AA700D60DC0 /* AJSingleImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28921FE81B894AA700D60DC0 /* AJSingleImageViewController.swift */; };
-		28921FEE1B894F4F00D60DC0 /* AJSingleImageViewControllerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28921FED1B894F4F00D60DC0 /* AJSingleImageViewControllerType.swift */; };
 		28A70FD01B88BE4F00422F6D /* AJScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A70FCF1B88BE4F00422F6D /* AJScrollView.swift */; };
 		28A70FD21B88D85000422F6D /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A70FD11B88D85000422F6D /* Enums.swift */; };
 		28A70FD41B88FD3F00422F6D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A70FD31B88FD3F00422F6D /* MainViewController.swift */; };
@@ -44,7 +43,6 @@
 		28328DD91B88017800D8DF22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		28328DDA1B88017800D8DF22 /* AJImageViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJImageViewControllerTests.swift; sourceTree = "<group>"; };
 		28921FE81B894AA700D60DC0 /* AJSingleImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AJSingleImageViewController.swift; sourceTree = "<group>"; };
-		28921FED1B894F4F00D60DC0 /* AJSingleImageViewControllerType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AJSingleImageViewControllerType.swift; sourceTree = "<group>"; };
 		28A70FCF1B88BE4F00422F6D /* AJScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AJScrollView.swift; sourceTree = "<group>"; };
 		28A70FD11B88D85000422F6D /* Enums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		28A70FD31B88FD3F00422F6D /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -131,7 +129,6 @@
 			children = (
 				28921FE81B894AA700D60DC0 /* AJSingleImageViewController.swift */,
 				282606451B88FF27004B0717 /* AJSingleImageViewControllerTransition.swift */,
-				28921FED1B894F4F00D60DC0 /* AJSingleImageViewControllerType.swift */,
 			);
 			name = AJSingleImageViewController;
 			sourceTree = "<group>";
@@ -246,7 +243,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28921FEE1B894F4F00D60DC0 /* AJSingleImageViewControllerType.swift in Sources */,
 				28328DC71B88017800D8DF22 /* AJImageViewController.swift in Sources */,
 				28921FE91B894AA700D60DC0 /* AJSingleImageViewController.swift in Sources */,
 				28328DC51B88017800D8DF22 /* AppDelegate.swift in Sources */,
