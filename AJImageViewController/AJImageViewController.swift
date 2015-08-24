@@ -76,6 +76,7 @@ class AJImageViewController: UIViewController, UIScrollViewDelegate, UIViewContr
         }
         
         self.scrollView.contentSize = CGSize(width: self.scrollView.frame.width * CGFloat(self.itensCount), height: self.scrollView.frame.size.height)
+        self.scrollView.contentOffset.x = CGFloat(self.currentPage) * self.scrollView.frame.width
         
         self.loadVisiblePages()
     }

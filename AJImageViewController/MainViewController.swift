@@ -26,8 +26,8 @@ class MainViewController: UIViewController {
     }
     
     func presentImageViewController(gesture: UITapGestureRecognizer) -> Void {
-        let imageViewController = AJImageViewController(images: UIImage(named: "jake")!, UIImage(named: "fin")!, UIImage(named: "iceKing")!)
-//        let imageViewController = AJImageViewController(urls: NSURL(string: "http://myguitar.com.br/wp-content/uploads/2015/03/kiko-loureiro-angra-entrevista-my-guitar.jpg")!, NSURL(string: "http://wikimetal.com.br/site/wp-content/uploads/2013/10/Yngwie.jpg")!, NSURL(string: "https://c1.staticflickr.com/9/8004/7166837179_bfa07fd7b5_b.jpg")!)
+        let imageViewController = AJImageViewController(images: UIImage(named: "image1")!, UIImage(named: "image2")!, UIImage(named: "image3")!, UIImage(named: "image4")!)
+//        let imageViewController = AJImageViewController(urls: NSURL(string: "https://pixabay.com/static/uploads/photo/2013/10/09/02/26/beach-192975_640.jpg")!, NSURL(string: "https://pixabay.com/static/uploads/photo/2015/08/17/01/30/01-30-07-194_640.jpg")!, NSURL(string: "https://pixabay.com/static/uploads/photo/2013/10/02/23/03/dawn-190055_640.jpg")!, NSURL(string: "https://pixabay.com/static/uploads/photo/2015/07/08/19/28/summer-836773_640.jpg")!)
         self.presentViewController(imageViewController, animated: true, completion: nil)
 //        let singleImageController = AJSingleImageViewController(imageView: self.imageView)
 //        self.presentViewController(singleImageController, animated: true, completion: nil)
